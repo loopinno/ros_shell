@@ -1,0 +1,18 @@
+<launch>
+
+  <arg name="output" default="screen" />
+  <arg name="respawn" default="false" /> 
+  
+  <arg name="node_name" default="ros_shell" />
+  <arg name="command_service" default="$(arg node_name)/run_command" />
+  <arg name="script_service" default="$(arg node_name)/run_script" />
+  <arg name="script_path" default="$(find ros_shell)/scripts" />
+
+  <node pkg="ros_shell" type="ros_shell" name="$(arg node_name)"
+        output="$(arg output)" respawn="$(arg respawn)">
+    <param name="script_path" value="$(arg script_path)" />
+    <remap from="run_script" to="$(arg script_service)" />
+    <remap from="run_command" to="$(arg command_service)" />
+  </node>
+
+</launch>
